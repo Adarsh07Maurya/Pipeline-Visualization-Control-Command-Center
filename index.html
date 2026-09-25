@@ -1,0 +1,173 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Tower - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+<div class="sidebar">
+    <h2>🚀 Control Tower</h2>
+
+    <a class="active" href="index.html">🏠 Dashboard</a>
+    <a href="pipelines.html">🔄 Pipelines</a>
+    <a href="pipeline-details.html">📋 Pipeline Details</a>
+    <a href="jobs.html">🧩 Jobs</a>
+    <a href="environments.html">🖥 Environments</a>
+    <a href="logs.html">📜 Logs</a>
+    <a href="analytics.html">📊 Analytics</a>
+    <a href="settings.html">⚙ Settings</a>
+</div>
+
+<div class="main">
+
+    <header>
+        <h2>Dashboard</h2>
+        <span class="online">● System Online</span>
+    </header>
+
+    <div class="content">
+
+        <h1>Dashboard</h1>
+        <p class="subtitle">
+            Overview of your simulated CI/CD pipeline
+        </p>
+
+        <div class="cards">
+
+            <div class="card">
+                <p>Successful Pipelines</p>
+                <h2 class="green">12</h2>
+            </div>
+
+            <div class="card">
+                <p>Running Pipelines</p>
+                <h2 class="yellow">2</h2>
+            </div>
+
+            <div class="card">
+                <p>Failed Pipelines</p>
+                <h2 class="red">1</h2>
+            </div>
+
+            <div class="card">
+                <p>Total Deployments</p>
+                <h2>28</h2>
+            </div>
+
+        </div>
+
+
+        <div class="panel">
+
+            <div class="panel-header">
+                <div>
+                    <h2>Current Pipeline</h2>
+                    <p>main → production</p>
+                </div>
+
+                <button class="btn primary" onclick="runPipeline()">
+                    ▶ Run Pipeline
+                </button>
+            </div>
+
+            <div class="pipeline">
+
+                <div class="stage success">
+                    <span>✓</span>
+                    <h3>Build</h3>
+                    <p>Completed</p>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="stage success">
+                    <span>✓</span>
+                    <h3>Test</h3>
+                    <p>Passed</p>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="stage running">
+                    <span>●</span>
+                    <h3>Deploy</h3>
+                    <p>Running</p>
+                </div>
+
+                <div class="arrow">→</div>
+
+                <div class="stage locked">
+                    <span>🔒</span>
+                    <h3>Production</h3>
+                    <p>Locked</p>
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="two-column">
+
+            <div class="panel">
+
+                <h2>Recent Pipelines</h2>
+
+                <table>
+
+                    <tr>
+                        <th>Pipeline</th>
+                        <th>Status</th>
+                        <th>Time</th>
+                    </tr>
+
+                    <tr>
+                        <td>Frontend / main</td>
+                        <td><span class="badge success-badge">Passed</span></td>
+                        <td>2 min ago</td>
+                    </tr>
+
+                    <tr>
+                        <td>Backend / main</td>
+                        <td><span class="badge running-badge">Running</span></td>
+                        <td>5 min ago</td>
+                    </tr>
+
+                    <tr>
+                        <td>Mobile / develop</td>
+                        <td><span class="badge failed-badge">Failed</span></td>
+                        <td>10 min ago</td>
+                    </tr>
+
+                </table>
+
+            </div>
+
+
+            <div class="panel">
+
+                <h2>Recent Activity</h2>
+
+                <p class="green">✓ Build completed</p>
+                <p class="green">✓ Tests passed</p>
+                <p class="yellow">● Deployment running</p>
+                <p class="green">✓ Staging healthy</p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>
+
+<script src="script.js"></script>
+
+</body>
+</html>
+```
