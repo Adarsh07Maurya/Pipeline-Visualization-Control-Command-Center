@@ -1,0 +1,429 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Tower | Pipelines</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@600;700;800&display=swap" rel="stylesheet">
+    <style>
+    .sidebar,
+    .sidebar * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    .sidebar {
+        position: fixed;
+        inset: 0 auto 0 0;
+        z-index: 10;
+        display: flex;
+        flex-direction: column;
+        width: 250px;
+        padding: 25px 17px 16px;
+        overflow-y: auto;
+        background: #17233f;
+        color: #e8edf7;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 14px;
+        line-height: 1.5;
+    }
+    .sidebar .brand {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        padding: 0 8px 30px;
+        color: inherit;
+        text-decoration: none;
+    }
+    .sidebar .brand-logo {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+        width: 43px;
+        height: 43px;
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 13px;
+        background: linear-gradient(145deg, #5477f0, #3151c8);
+        color: #ffffff;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.16);
+    }
+    .sidebar .brand-logo svg { width: 24px; height: 24px; }
+    .sidebar .brand-text h2 {
+        font-family: 'Manrope', sans-serif;
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: -0.5px;
+    }
+    .sidebar .brand-text span {
+        display: block;
+        margin-top: 2px;
+        color: #9daac3;
+        font-size: 11px;
+    }
+    .sidebar .nav-label {
+        padding: 0 12px;
+        color: #8e9bb4;
+        font-size: 10px;
+        font-weight: 700;
+        letter-spacing: 1.3px;
+    }
+    .sidebar .nav-label-spaced { margin-top: 28px; }
+    .sidebar .sidebar-nav {
+        display: flex;
+        flex-direction: column;
+        gap: 5px;
+        margin-top: 12px;
+    }
+    .sidebar .nav-item {
+        position: relative;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        min-height: 44px;
+        padding: 0 12px;
+        border-radius: 9px;
+        color: #bac5d9;
+        font-size: 13px;
+        font-weight: 500;
+        text-decoration: none;
+        transition: background 0.2s, color 0.2s;
+    }
+    .sidebar .nav-item svg { width: 18px; height: 18px; flex-shrink: 0; }
+    .sidebar .nav-item:hover {
+        background: rgba(255, 255, 255, 0.07);
+        color: #ffffff;
+    }
+    .sidebar .nav-item.active {
+        background: #304a80;
+        color: #ffffff;
+        font-weight: 600;
+    }
+    .sidebar .nav-item.active::before {
+        position: absolute;
+        top: 10px;
+        bottom: 10px;
+        left: 0;
+        width: 3px;
+        border-radius: 4px;
+        background: #8eabff;
+        content: "";
+    }
+    .sidebar-bottom { margin-top: auto; padding-top: 28px; }
+    .system-card {
+        padding: 13px 12px;
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        border-radius: 11px;
+        background: rgba(255, 255, 255, 0.045);
+    }
+    .system-card-top {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 11px;
+    }
+    .system-indicator {
+        width: 8px;
+        height: 8px;
+        flex-shrink: 0;
+        border-radius: 50%;
+        background: #48c58b;
+    }
+    .system-card p {
+        margin-top: 7px;
+        color: #a4b1c8;
+        font-size: 11px;
+        line-height: 1.6;
+    }
+    .sidebar-version {
+        display: flex;
+        justify-content: space-between;
+        gap: 8px;
+        margin-top: 18px;
+        padding: 0 3px;
+        color: #8391aa;
+        font-size: 10px;
+    }
+    .main { margin-left: 250px; }
+    @media (max-width: 1200px) {
+        .sidebar { width: 225px; }
+        .main { margin-left: 225px; }
+    }
+    @media (max-width: 760px) {
+        .sidebar { position: static; width: 100%; padding: 15px; }
+        .sidebar .brand { padding-bottom: 16px; }
+        .sidebar .nav-label { padding-left: 8px; }
+        .sidebar .sidebar-nav {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 5px;
+            margin-top: 8px;
+        }
+        .sidebar .nav-label-spaced { margin-top: 17px; }
+        .sidebar .nav-item { min-height: 40px; padding: 0 9px; font-size: 12px; }
+        .sidebar-bottom { padding-top: 15px; }
+        .system-card { padding: 10px; }
+        .sidebar-version { margin-top: 12px; }
+        .main { margin-left: 0; }
+    }
+    </style>
+</head>
+<body bgcolor="#f6f8fb" text="#172338" topmargin="0" leftmargin="0" marginheight="0" marginwidth="0">
+    <svg width="0" height="0" aria-hidden="true">
+        <symbol id="i-tower" viewBox="0 0 24 24"><path d="M18.2 12.27 20 6H4l1.8 6.27a1 1 0 0 0 .95.73h10.5a1 1 0 0 0 .96-.73Z"/><path d="M8 13v9"/><path d="M16 13v9"/><path d="M9 6l1 7"/><path d="m15 6-1 7"/><path d="M12 6V2"/><path d="M13 2h-2"/></symbol>
+        <symbol id="i-dashboard" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="9" rx="1"/><rect x="14" y="3" width="7" height="5" rx="1"/><rect x="14" y="12" width="7" height="9" rx="1"/><rect x="3" y="16" width="7" height="5" rx="1"/></symbol>
+        <symbol id="i-branch" viewBox="0 0 24 24"><line x1="6" y1="3" x2="6" y2="15"/><circle cx="18" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M18 9a9 9 0 0 1-9 9"/></symbol>
+        <symbol id="i-workflow" viewBox="0 0 24 24"><rect x="3" y="3" width="8" height="8" rx="2"/><path d="M7 11v4a2 2 0 0 0 2 2h4"/><rect x="13" y="13" width="8" height="8" rx="2"/></symbol>
+        <symbol id="i-checks" viewBox="0 0 24 24"><path d="m3 17 2 2 4-4"/><path d="m3 7 2 2 4-4"/><path d="M13 6h8"/><path d="M13 12h8"/><path d="M13 18h8"/></symbol>
+        <symbol id="i-layers" viewBox="0 0 24 24"><path d="m12.83 2.18a2 2 0 0 0-1.66 0L2.6 6.08a1 1 0 0 0 0 1.83l8.58 3.91a2 2 0 0 0 1.66 0l8.58-3.9a1 1 0 0 0 0-1.83Z"/><path d="m22 17.65-9.17 4.16a2 2 0 0 1-1.66 0L2 17.65"/><path d="m22 12.65-9.17 4.16a2 2 0 0 1-1.66 0L2 12.65"/></symbol>
+        <symbol id="i-logs" viewBox="0 0 24 24"><path d="M15 12h-5"/><path d="M15 8h-5"/><path d="M19 17V5a2 2 0 0 0-2-2H4"/><path d="M8 21h12a2 2 0 0 0 2-2v-1a1 1 0 0 0-1-1H11a1 1 0 0 0-1 1v1a2 2 0 1 1-4 0V5a2 2 0 1 0-4 0v2a1 1 0 0 0 1 1h3"/></symbol>
+        <symbol id="i-chart" viewBox="0 0 24 24"><path d="M12 16v5"/><path d="M16 14v7"/><path d="M20 10v11"/><path d="m22 3-8.646 8.646a.5.5 0 0 1-.708 0L9.354 8.354a.5.5 0 0 0-.707 0L2 15"/><path d="M4 18v3"/><path d="M8 14v7"/></symbol>
+        <symbol id="i-settings" viewBox="0 0 24 24"><path d="M12.22 2h-.44a2 2 0 0 0-2 2v.18a2 2 0 0 1-1 1.73l-.43.25a2 2 0 0 1-2 0l-.15-.08a2 2 0 0 0-2.73.73l-.22.38a2 2 0 0 0 .73 2.73l.15.1a2 2 0 0 1 1 1.72v.51a2 2 0 0 1-1 1.74l-.15.09a2 2 0 0 0-.73 2.73l.22.38a2 2 0 0 0 2.73.73l.15-.08a2 2 0 0 1 2 0l.43.25a2 2 0 0 1 1 1.73V20a2 2 0 0 0 2 2h.44a2 2 0 0 0 2-2v-.18a2 2 0 0 1 1-1.73l.43-.25a2 2 0 0 1 2 0l.15.08a2 2 0 0 0 2.73-.73l.22-.39a2 2 0 0 0-.73-2.73l-.15-.08a2 2 0 0 1-1-1.74v-.5a2 2 0 0 1 1-1.74l.15-.09a2 2 0 0 0 .73-2.73l-.22-.38a2 2 0 0 0-2.73-.73l-.15.08a2 2 0 0 1-2 0l-.43-.25a2 2 0 0 1-1-1.73V4a2 2 0 0 0-2-2z"/><circle cx="12" cy="12" r="3"/></symbol>
+    </svg>
+    <aside class="sidebar">
+        <a href="index.html" class="brand">
+            <div class="brand-logo">
+                <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-tower"/></svg>
+            </div>
+            <div class="brand-text">
+                <h2>Control Tower</h2>
+                <span>Deployment Center</span>
+            </div>
+        </a>
+        <div class="nav-section">
+            <p class="nav-label">WORKSPACE</p>
+            <nav class="sidebar-nav">
+                <a href="index.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-dashboard"/></svg>
+                    <span>Dashboard</span>
+                </a>
+                <a href="pipelines.html" class="nav-item active">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-branch"/></svg>
+                    <span>Pipelines</span>
+                </a>
+                <a href="pipeline-details.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-workflow"/></svg>
+                    <span>Pipeline Details</span>
+                </a>
+                <a href="jobs.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-checks"/></svg>
+                    <span>Jobs</span>
+                </a>
+                <a href="environments.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-layers"/></svg>
+                    <span>Environments</span>
+                </a>
+            </nav>
+            <p class="nav-label nav-label-spaced">INSIGHTS</p>
+            <nav class="sidebar-nav">
+                <a href="logs.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-logs"/></svg>
+                    <span>Logs</span>
+                </a>
+                <a href="analytics.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-chart"/></svg>
+                    <span>Analytics</span>
+                </a>
+                <a href="settings.html" class="nav-item">
+                    <svg fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><use href="#i-settings"/></svg>
+                    <span>Settings</span>
+                </a>
+            </nav>
+        </div>
+        <div class="sidebar-bottom">
+            <div class="system-card">
+                <div class="system-card-top">
+                    <span class="system-indicator"></span>
+                    <strong>All systems operational</strong>
+                </div>
+                <p>Your deployment services are running normally.</p>
+            </div>
+            <div class="sidebar-version">
+                <span>Control Tower</span>
+                <span>Frontend Preview</span>
+            </div>
+        </div>
+    </aside>
+    <main class="main">
+        <table width="100%" cellpadding="32" cellspacing="0" border="0">
+            <tr>
+                <td><font face="DM Sans, Arial, sans-serif">
+                    <table width="100%" cellpadding="0" cellspacing="0" border="0">
+                        <tr>
+                            <td>
+                                <small><font color="#7b8799">Control Tower / Pipelines</font></small>
+                                <h1>Pipelines</h1>
+                                <font color="#7b8799">Monitor and manage your deployment pipelines.</font>
+                            </td>
+                            <td align="right" valign="middle">
+                                <button type="button"><b>🔄 Refresh</b></button>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <table width="100%" cellpadding="0" cellspacing="12" border="0">
+                        <tr>
+                            <td width="25%" valign="top">
+                                <table width="100%" cellpadding="16" cellspacing="0" border="1" bordercolor="#e7ebf1" bgcolor="#ffffff">
+                                    <tr>
+                                        <td>
+                                            <small><font color="#647188">Total pipelines</font></small> &nbsp; 🧩
+                                            <h2>8</h2>
+                                            <small><b><font color="#67748a">Configured</font></b></small><br>
+                                            <small><font color="#8994a6">All configured pipelines</font></small>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="25%" valign="top">
+                                <table width="100%" cellpadding="16" cellspacing="0" border="1" bordercolor="#e7ebf1" bgcolor="#ffffff">
+                                    <tr>
+                                        <td>
+                                            <small><font color="#647188">Successful</font></small> &nbsp; ✅
+                                            <h2>5</h2>
+                                            <small><b><font color="#16845b">Healthy</font></b></small><br>
+                                            <small><font color="#8994a6">Completed successfully</font></small>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="25%" valign="top">
+                                <table width="100%" cellpadding="16" cellspacing="0" border="1" bordercolor="#e7ebf1" bgcolor="#ffffff">
+                                    <tr>
+                                        <td>
+                                            <small><font color="#647188">Running</font></small> &nbsp; ⏳
+                                            <h2>2</h2>
+                                            <small><b><font color="#67748a">In progress</font></b></small><br>
+                                            <small><font color="#8994a6">Currently in progress</font></small>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                            <td width="25%" valign="top">
+                                <table width="100%" cellpadding="16" cellspacing="0" border="1" bordercolor="#e7ebf1" bgcolor="#ffffff">
+                                    <tr>
+                                        <td>
+                                            <small><font color="#647188">Failed</font></small> &nbsp; ❌
+                                            <h2>1</h2>
+                                            <small><b><font color="#d64545">Needs review</font></b></small><br>
+                                            <small><font color="#8994a6">Need attention</font></small>
+                                        </td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                    <br>
+                    <table width="100%" cellpadding="0" cellspacing="0" border="1" bordercolor="#e7ebf1" bgcolor="#ffffff">
+                        <tr>
+                            <td>
+                                <table width="100%" cellpadding="20" cellspacing="0" border="0">
+                                    <tr>
+                                        <td>
+                                            <h2>All Pipelines</h2>
+                                            <small><font color="#7b8799">View and manage your deployment workflows.</font></small>
+                                        </td>
+                                        <td align="right" valign="middle">
+                                            <button type="button"><b>➕ New Pipeline</b></button>
+                                        </td>
+                                    </tr>
+                                </table>
+                                <table width="100%" cellpadding="14" cellspacing="0" border="0">
+                                    <tr bgcolor="#f9fafc" align="left">
+                                        <th><small><font color="#7b8799">PIPELINE</font></small></th>
+                                        <th><small><font color="#7b8799">BRANCH</font></small></th>
+                                        <th><small><font color="#7b8799">ENVIRONMENT</font></small></th>
+                                        <th><small><font color="#7b8799">STATUS</font></small></th>
+                                        <th><small><font color="#7b8799">LAST RUN</font></small></th>
+                                        <th><small><font color="#7b8799">DURATION</font></small></th>
+                                        <th><small><font color="#7b8799">ACTIONS</font></small></th>
+                                    </tr>
+                                    <tr>
+                                        <td>📦 <b>Frontend Build</b><br><small><font color="#7b8799">PIPE-001</font></small></td>
+                                        <td><code>main</code></td>
+                                        <td>Production</td>
+                                        <td><font color="#16845b"><b>● Successful</b></font></td>
+                                        <td>2 minutes ago</td>
+                                        <td>2m 14s</td>
+                                        <td><button type="button">Run</button></td>
+                                    </tr>
+                                    <tr bgcolor="#fbfcff">
+                                        <td>🖥️ <b>Backend Deploy</b><br><small><font color="#7b8799">PIPE-002</font></small></td>
+                                        <td><code>develop</code></td>
+                                        <td>Staging</td>
+                                        <td><font color="#3563e9"><b>● Running</b></font></td>
+                                        <td>5 minutes ago</td>
+                                        <td>Running</td>
+                                        <td><button type="button">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>🗄️ <b>Database Migration</b><br><small><font color="#7b8799">PIPE-003</font></small></td>
+                                        <td><code>main</code></td>
+                                        <td>Production</td>
+                                        <td><font color="#d64545"><b>● Failed</b></font></td>
+                                        <td>18 minutes ago</td>
+                                        <td>45s</td>
+                                        <td><button type="button">Retry</button></td>
+                                    </tr>
+                                    <tr bgcolor="#fbfcff">
+                                        <td>🧪 <b>Unit Tests</b><br><small><font color="#7b8799">PIPE-004</font></small></td>
+                                        <td><code>feature/tests</code></td>
+                                        <td>Development</td>
+                                        <td><font color="#16845b"><b>● Successful</b></font></td>
+                                        <td>25 minutes ago</td>
+                                        <td>1m 32s</td>
+                                        <td><button type="button">Run</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>🔌 <b>API Integration</b><br><small><font color="#7b8799">PIPE-005</font></small></td>
+                                        <td><code>develop</code></td>
+                                        <td>Staging</td>
+                                        <td><font color="#16845b"><b>● Successful</b></font></td>
+                                        <td>40 minutes ago</td>
+                                        <td>3m 05s</td>
+                                        <td><button type="button">Run</button></td>
+                                    </tr>
+                                    <tr bgcolor="#fbfcff">
+                                        <td>🐳 <b>Docker Image Build</b><br><small><font color="#7b8799">PIPE-006</font></small></td>
+                                        <td><code>main</code></td>
+                                        <td>Production</td>
+                                        <td><font color="#3563e9"><b>● Running</b></font></td>
+                                        <td>1 hour ago</td>
+                                        <td>Running</td>
+                                        <td><button type="button">View</button></td>
+                                    </tr>
+                                    <tr>
+                                        <td>🛡️ <b>Code Quality Check</b><br><small><font color="#7b8799">PIPE-007</font></small></td>
+                                        <td><code>develop</code></td>
+                                        <td>Development</td>
+                                        <td><font color="#16845b"><b>● Successful</b></font></td>
+                                        <td>2 hours ago</td>
+                                        <td>56s</td>
+                                        <td><button type="button">Run</button></td>
+                                    </tr>
+                                    <tr bgcolor="#fbfcff">
+                                        <td>🔍 <b>Security Scan</b><br><small><font color="#7b8799">PIPE-008</font></small></td>
+                                        <td><code>release/v1</code></td>
+                                        <td>Staging</td>
+                                        <td><font color="#16845b"><b>● Successful</b></font></td>
+                                        <td>3 hours ago</td>
+                                        <td>1m 48s</td>
+                                        <td><button type="button">Run</button></td>
+                                    </tr>
+                                </table>
+                                <table width="100%" cellpadding="16" cellspacing="0" border="0" bgcolor="#f9fafc">
+                                    <tr>
+                                        <td><small><font color="#7b8799">Showing 8 pipelines</font></small></td>
+                                        <td align="right"><small><font color="#7b8799">Updated just now</font></small></td>
+                                    </tr>
+                                </table>
+                            </td>
+                        </tr>
+                    </table>
+                </font></td>
+            </tr>
+        </table>
+    </main>
+</body>
+</html>
