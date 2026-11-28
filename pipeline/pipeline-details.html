@@ -1,1 +1,226 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Control Tower | Pipeline Details</title><link rel="stylesheet" href="style.css"></head><body><div class="app"><aside class="sidebar"><a class="brand" href="index.html"><span class="brand-icon"></span><span><b>Control Tower</b><small>Deployment Center</small></span></a><nav><p class="nav-label">WORKSPACE</p><a class="nav-link" href="index.html">Dashboard</a><a class="nav-link" href="pipelines.html">Pipelines</a><a class="nav-link" href="pipeline-details.html">Pipeline Details</a><a class="nav-link" href="jobs.html">Jobs</a><a class="nav-link" href="environments.html">Environments</a><p class="nav-label">INSIGHTS</p><a class="nav-link" href="logs.html">Logs</a><a class="nav-link" href="analytics.html">Analytics</a><a class="nav-link" href="settings.html">Settings</a></nav><div class="system-card"><span class="green-dot"></span><b>All systems operational</b><p>Your deployment services are running normally.</p></div><div class="sidebar-footer"><span>Control Tower</span><span>Frontend Preview</span></div></aside><main class="main"><header class="topbar"><div><span>Workspace</span><b>Pipeline Details</b></div><div class="top-right"><span class="demo"><i></i>Demo environment</span><div class="admin"><span class="avatar">CT</span><div><b>Control Admin</b><small>Administrator</small></div></div></div></header><section class="content"><div class="welcome page-welcome"><div><p class="eyebrow">WORKSPACE</p><h1>Pipeline Details</h1><p class="muted">Inspect stages, configuration and recent execution.</p></div></div><div class="panel"><div class="table-head"><div><h2>Frontend Production</h2><p class="muted">main branch · Updated today</p></div><button class="primary" id="runPipeline">Run pipeline</button></div><div class="stages detail-stages"><div class="stage complete"><span class="stage-icon">✓</span><b>Build</b><small>Completed</small></div><div class="stage complete"><span class="stage-icon">✓</span><b>Test</b><small>Completed</small></div><div class="stage"><span class="stage-icon"></span><b>Deploy</b><small>Waiting</small></div><div class="stage"><span class="stage-icon"></span><b>Production</b><small>Waiting</small></div></div><div class="panel"><h2>Pipeline configuration</h2><div class="detail-grid"><div><label>Repository</label><p>control-tower/frontend</p></div><div><label>Branch</label><p>main</p></div><div><label>Environment</label><p>Production</p></div><div><label>Trigger</label><p>Manual / Push</p></div></div></div></section></main></div><script src="script.js"></script></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Tower | Pipeline Details</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <a class="brand" href="index.html">
+                <span class="brand-icon"></span>
+
+                <span>
+                    <b>Control Tower</b>
+                    <small>Deployment Center</small>
+                </span>
+            </a>
+
+            <nav>
+
+                <p class="nav-label">WORKSPACE</p>
+
+                <a class="nav-link" href="index.html">Dashboard</a>
+                <a class="nav-link" href="pipelines.html">Pipelines</a>
+                <a class="nav-link" href="pipeline-details.html">Pipeline Details</a>
+                <a class="nav-link" href="jobs.html">Jobs</a>
+                <a class="nav-link" href="environments.html">Environments</a>
+
+                <p class="nav-label">INSIGHTS</p>
+
+                <a class="nav-link" href="logs.html">Logs</a>
+                <a class="nav-link" href="analytics.html">Analytics</a>
+                <a class="nav-link" href="settings.html">Settings</a>
+
+            </nav>
+
+            <!-- System Status -->
+            <div class="system-card">
+
+                <span class="green-dot"></span>
+                <b>All systems operational</b>
+
+                <p>
+                    Your deployment services are running normally.
+                </p>
+
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+
+                <span>Control Tower</span>
+                <span>Frontend Preview</span>
+
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+
+            <!-- Top Header -->
+            <header class="topbar">
+
+                <div>
+                    <span>Workspace</span>
+                    <b>Pipeline Details</b>
+                </div>
+
+                <div class="top-right">
+
+                    <span class="demo">
+                        <i></i>
+                        Demo environment
+                    </span>
+
+                    <div class="admin">
+
+                        <span class="avatar">CT</span>
+
+                        <div>
+                            <b>Control Admin</b>
+                            <small>Administrator</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- Page Content -->
+            <section class="content">
+
+                <!-- Welcome Section -->
+                <div class="welcome page-welcome">
+
+                    <div>
+                        <p class="eyebrow">WORKSPACE</p>
+
+                        <h1>Pipeline Details</h1>
+
+                        <p class="muted">
+                            Inspect stages, configuration and recent execution.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Pipeline Details Panel -->
+                <div class="panel">
+
+                    <div class="table-head">
+
+                        <div>
+                            <h2>Frontend Production</h2>
+
+                            <p class="muted">
+                                main branch · Updated today
+                            </p>
+                        </div>
+
+                        <button class="primary" id="runPipeline">
+                            Run pipeline
+                        </button>
+
+                    </div>
+
+                    <!-- Pipeline Stages -->
+                    <div class="stages detail-stages">
+
+                        <div class="stage complete">
+
+                            <span class="stage-icon">✓</span>
+
+                            <b>Build</b>
+
+                            <small>Completed</small>
+
+                        </div>
+
+                        <div class="stage complete">
+
+                            <span class="stage-icon">✓</span>
+
+                            <b>Test</b>
+
+                            <small>Completed</small>
+
+                        </div>
+
+                        <div class="stage">
+
+                            <span class="stage-icon"></span>
+
+                            <b>Deploy</b>
+
+                            <small>Waiting</small>
+
+                        </div>
+
+                        <div class="stage">
+
+                            <span class="stage-icon"></span>
+
+                            <b>Production</b>
+
+                            <small>Waiting</small>
+
+                        </div>
+
+                    </div>
+
+                    <!-- Pipeline Configuration -->
+                    <div class="panel">
+
+                        <h2>Pipeline configuration</h2>
+
+                        <div class="detail-grid">
+
+                            <div>
+                                <label>Repository</label>
+                                <p>control-tower/frontend</p>
+                            </div>
+
+                            <div>
+                                <label>Branch</label>
+                                <p>main</p>
+                            </div>
+
+                            <div>
+                                <label>Environment</label>
+                                <p>Production</p>
+                            </div>
+
+                            <div>
+                                <label>Trigger</label>
+                                <p>Manual / Push</p>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
