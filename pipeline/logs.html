@@ -1,1 +1,178 @@
-<!doctype html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Control Tower | Logs</title><link rel="stylesheet" href="style.css"></head><body><div class="app"><aside class="sidebar"><a class="brand" href="index.html"><span class="brand-icon"></span><span><b>Control Tower</b><small>Deployment Center</small></span></a><nav><p class="nav-label">WORKSPACE</p><a class="nav-link" href="index.html">Dashboard</a><a class="nav-link" href="pipelines.html">Pipelines</a><a class="nav-link" href="pipeline-details.html">Pipeline Details</a><a class="nav-link" href="jobs.html">Jobs</a><a class="nav-link" href="environments.html">Environments</a><p class="nav-label">INSIGHTS</p><a class="nav-link" href="logs.html">Logs</a><a class="nav-link" href="analytics.html">Analytics</a><a class="nav-link" href="settings.html">Settings</a></nav><div class="system-card"><span class="green-dot"></span><b>All systems operational</b><p>Your deployment services are running normally.</p></div><div class="sidebar-footer"><span>Control Tower</span><span>Frontend Preview</span></div></aside><main class="main"><header class="topbar"><div><span>Workspace</span><b>Logs</b></div><div class="top-right"><span class="demo"><i></i>Demo environment</span><div class="admin"><span class="avatar">CT</span><div><b>Control Admin</b><small>Administrator</small></div></div></div></header><section class="content"><div class="welcome page-welcome"><div><p class="eyebrow">WORKSPACE</p><h1>Logs</h1><p class="muted">Search events and activity across your deployment system.</p></div></div><div class="panel"><div class="table-head"><h2>Activity logs</h2><input id="logSearch" placeholder="Search logs..."></div><div class="log-list" id="logList"><p><time>10:42:08</time><span class="log-level info">INFO</span> Build completed successfully.</p><p><time>10:42:11</time><span class="log-level info">INFO</span> Test suite started.</p><p><time>10:43:02</time><span class="log-level success">OK</span> All tests passed.</p><p><time>10:43:05</time><span class="log-level warning">WARN</span> Deployment waiting for approval.</p><p><time>10:44:18</time><span class="log-level error">ERROR</span> Container health check failed on previous run.</p></div></div></section></main></div><script src="script.js"></script></body></html>
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Control Tower | Logs</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+
+    <div class="app">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+
+            <a class="brand" href="index.html">
+                <span class="brand-icon"></span>
+
+                <span>
+                    <b>Control Tower</b>
+                    <small>Deployment Center</small>
+                </span>
+            </a>
+
+            <nav>
+
+                <p class="nav-label">WORKSPACE</p>
+
+                <a class="nav-link" href="index.html">Dashboard</a>
+                <a class="nav-link" href="pipelines.html">Pipelines</a>
+                <a class="nav-link" href="pipeline-details.html">Pipeline Details</a>
+                <a class="nav-link" href="jobs.html">Jobs</a>
+                <a class="nav-link" href="environments.html">Environments</a>
+
+                <p class="nav-label">INSIGHTS</p>
+
+                <a class="nav-link" href="logs.html">Logs</a>
+                <a class="nav-link" href="analytics.html">Analytics</a>
+                <a class="nav-link" href="settings.html">Settings</a>
+
+            </nav>
+
+            <!-- System Status -->
+            <div class="system-card">
+
+                <span class="green-dot"></span>
+                <b>All systems operational</b>
+
+                <p>
+                    Your deployment services are running normally.
+                </p>
+
+            </div>
+
+            <!-- Sidebar Footer -->
+            <div class="sidebar-footer">
+                <span>Control Tower</span>
+                <span>Frontend Preview</span>
+            </div>
+
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main">
+
+            <!-- Top Header -->
+            <header class="topbar">
+
+                <div>
+                    <span>Workspace</span>
+                    <b>Logs</b>
+                </div>
+
+                <div class="top-right">
+
+                    <span class="demo">
+                        <i></i>
+                        Demo environment
+                    </span>
+
+                    <div class="admin">
+
+                        <span class="avatar">CT</span>
+
+                        <div>
+                            <b>Control Admin</b>
+                            <small>Administrator</small>
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </header>
+
+            <!-- Page Content -->
+            <section class="content">
+
+                <!-- Welcome Section -->
+                <div class="welcome page-welcome">
+
+                    <div>
+                        <p class="eyebrow">WORKSPACE</p>
+
+                        <h1>Logs</h1>
+
+                        <p class="muted">
+                            Search events and activity across your deployment system.
+                        </p>
+                    </div>
+
+                </div>
+
+                <!-- Activity Logs Panel -->
+                <div class="panel">
+
+                    <div class="table-head">
+
+                        <h2>Activity logs</h2>
+
+                        <input
+                            id="logSearch"
+                            placeholder="Search logs..."
+                        >
+
+                    </div>
+
+                    <!-- Log List -->
+                    <div class="log-list" id="logList">
+
+                        <p>
+                            <time>10:42:08</time>
+                            <span class="log-level info">INFO</span>
+                            Build completed successfully.
+                        </p>
+
+                        <p>
+                            <time>10:42:11</time>
+                            <span class="log-level info">INFO</span>
+                            Test suite started.
+                        </p>
+
+                        <p>
+                            <time>10:43:02</time>
+                            <span class="log-level success">OK</span>
+                            All tests passed.
+                        </p>
+
+                        <p>
+                            <time>10:43:05</time>
+                            <span class="log-level warning">WARN</span>
+                            Deployment waiting for approval.
+                        </p>
+
+                        <p>
+                            <time>10:44:18</time>
+                            <span class="log-level error">ERROR</span>
+                            Container health check failed on previous run.
+                        </p>
+
+                    </div>
+
+                </div>
+
+            </section>
+
+        </main>
+
+    </div>
+
+    <!-- JavaScript -->
+    <script src="script.js"></script>
+
+</body>
+</html>
